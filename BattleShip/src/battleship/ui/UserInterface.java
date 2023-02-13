@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import static battleship.logic.MapBuilder.getCoordinatesFromInterval;
 import static battleship.logic.MapBuilder.placeShipOnTheMap;
+import static battleship.logic.Shooter.placeShootOnTheMap;
 import static java.lang.Math.abs;
 
 /**
@@ -29,6 +30,11 @@ public class UserInterface {
                 i++;
             }
         }
+
+        System.out.println("The game starts!");
+        printBattleShipMap(battleField);
+        System.out.println("Take a shot!");
+        placeShootOnTheMap(battleField);
     }
 
     private static boolean validateShipLength(int[] inputedCoordinates, int lengthOfShip) {
