@@ -17,6 +17,8 @@ public class UserInterface {
 
     public static void start() {
         String[][] battleField = replaceWithNumbers(replaceWithLetters(fillBattleShip()));
+        String[][] battleFieldWithFog = replaceWithNumbers(replaceWithLetters(fillBattleShip()));
+
         printBattleShipMap(battleField);
         ShipType[] shipTypes = ShipType.values();
 
@@ -32,9 +34,9 @@ public class UserInterface {
         }
 
         System.out.println("The game starts!");
-        printBattleShipMap(battleField);
+        printBattleShipMap(battleFieldWithFog);
         System.out.println("Take a shot!");
-        placeShootOnTheMap(battleField);
+        placeShootOnTheMap(battleField, battleFieldWithFog);
     }
 
     private static boolean validateShipLength(int[] inputedCoordinates, int lengthOfShip) {

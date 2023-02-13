@@ -9,7 +9,7 @@ import static battleship.ui.UserInterface.readInputFromUser;
  */
 public class Shooter {
 
-    public static void placeShootOnTheMap(String[][] battleShip) {
+    public static void placeShootOnTheMap(String[][] battleShip, String[][] fogMap) {
         while(true) {
 
             int[] coordinatesOfShoot = getCoordinatesFromInterval(readInputFromUser());
@@ -23,14 +23,20 @@ public class Shooter {
             }
             if (battleShip[x1][y1].equals("O ")) {
                 battleShip[x1][y1] = "X ";
-                printBattleShipMap(battleShip);
+                fogMap[x1][y1] = "X ";
+
+                printBattleShipMap(fogMap);
                 System.out.println("You hit a ship!");
+                printBattleShipMap(battleShip);
                 break;
 
             } else if (battleShip[x1][y1].equals("~ ")) {
                 battleShip[x1][y1] = "M ";
-                printBattleShipMap(battleShip);
+                fogMap[x1][y1] = "X ";
+
+                printBattleShipMap(fogMap);
                 System.out.println("You missed!");
+                printBattleShipMap(battleShip);
                 break;
             }
 
