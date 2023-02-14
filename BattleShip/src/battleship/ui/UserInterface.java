@@ -8,6 +8,7 @@ import java.util.Scanner;
 import static battleship.logic.MapBuilder.getCoordinatesFromInterval;
 import static battleship.logic.MapBuilder.placeShipOnTheMap;
 import static battleship.logic.Shooter.placeShootOnTheMap;
+import static battleship.logic.Shooter.shootUntilTheEnd;
 import static java.lang.Math.abs;
 
 /**
@@ -22,11 +23,10 @@ public class UserInterface {
         printBattleShipMap(battleField);
         ShipType[] shipTypes = ShipType.values();
 
-
-        for (int i = 0; i < shipTypes.length;) {
+        for (int i = 0; i < shipTypes.length; ) {
             askForCoordinates(shipTypes[i].getName(), shipTypes[i].getLength());
             int[] inputedCoordinates = getCoordinatesFromInterval(readInputFromUser());
-            if(validate(inputedCoordinates, shipTypes[i], battleField)) {
+            if (validate(inputedCoordinates, shipTypes[i], battleField)) {
                 placeShipOnTheMap(battleField, inputedCoordinates);
                 printBattleShipMap(battleField);
                 i++;
@@ -36,12 +36,13 @@ public class UserInterface {
         System.out.println("The game starts!");
         printBattleShipMap(battleFieldWithFog);
         System.out.println("Take a shot!");
-        placeShootOnTheMap(battleField, battleFieldWithFog);
+        shootUntilTheEnd(battleField, battleFieldWithFog);
+        System.out.println("You sank the last ship. You won. Congratulations!");
     }
 
     private static boolean validateShipLength(int[] inputedCoordinates, int lengthOfShip) {
-       return abs(inputedCoordinates[0] - inputedCoordinates[2]) == lengthOfShip - 1 ||
-           abs(inputedCoordinates[1] - inputedCoordinates[3]) == lengthOfShip - 1;
+        return abs(inputedCoordinates[0] - inputedCoordinates[2]) == lengthOfShip - 1 ||
+            abs(inputedCoordinates[1] - inputedCoordinates[3]) == lengthOfShip - 1;
     }
 
     private static boolean validateShipPositon(int[] inputedCoordinates) {
@@ -53,7 +54,7 @@ public class UserInterface {
         int i = 0;
         int x1, y1, x2, y2;
 
-        while(i < inputedCoordinates.length) {
+        while (i < inputedCoordinates.length) {
             x1 = inputedCoordinates[i];
             y1 = inputedCoordinates[i + 1];
             x2 = inputedCoordinates[i + 2];
@@ -66,7 +67,7 @@ public class UserInterface {
                     y2 = temp;
                 }
 
-                for(int k = y1; k <= y2; k++) {
+                for (int k = y1; k <= y2; k++) {
                     if (x1 > 1 && battleShip[x1 - 1][k].equals("O ") ||
                         x1 < 10 && battleShip[x1 + 1][k].equals("O ") ||
                         k > 1 && battleShip[x1][k - 1].equals("O ") ||
@@ -80,7 +81,6 @@ public class UserInterface {
                         return false;
                     }
                 }
-
             } else if (y1 == y2) {
                 if (x1 > x2) {
                     int temp = x1;
@@ -88,7 +88,7 @@ public class UserInterface {
                     x2 = temp;
                 }
 
-                for(int m = x1; m <= x2; m++) {
+                for (int m = x1; m <= x2; m++) {
                     if (m > 1 && battleShip[m - 1][y1].equals("O ") ||
                         m < 10 && battleShip[m + 1][y1].equals("O ") ||
                         y1 > 1 && battleShip[m][y1 - 1].equals("O ") ||
@@ -109,19 +109,17 @@ public class UserInterface {
     }
 
     private static boolean validate(int[] inputedCoordinates, ShipType shipType, String[][] battleShip) {
-        if(!validateShipLength(inputedCoordinates, shipType.getLength())) {
+        if (!validateShipLength(inputedCoordinates, shipType.getLength())) {
             //Write error
             System.out.println("Error! Wrong length of the " + shipType.getName() + "! Try again:\n");
             return false;
         }
-        if(!validateShipPositon(inputedCoordinates))
-        {
+        if (!validateShipPositon(inputedCoordinates)) {
             //Write error
             System.out.println("Error! Wrong ship location! Try again:\n");
             return false;
         }
-        if(!validateNearestShipPositon(inputedCoordinates, battleShip))
-        {
+        if (!validateNearestShipPositon(inputedCoordinates, battleShip)) {
             //Write error
             System.out.println("Error! You placed it too close to another one. Try again:\n");
             return false;

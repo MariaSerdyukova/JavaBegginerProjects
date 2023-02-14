@@ -10,19 +10,19 @@ public enum ShipType {
     CRUISER("Cruiser", 3),
     DESTROYER("Destroyer", 2);
 
-   private String name;
-   private int length;
+    private String name;
+    private int length;
 
-   ShipType(String name, int length) {
-       this.name = name;
-       this.length = length;
-   }
+    ShipType(String name, int length) {
+        this.name = name;
+        this.length = length;
+    }
 
-   public String getName() {
-       return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public int getLength() {
-       return length;
-   }
+    public int getLength() {
+        return length;
+    }
 }
