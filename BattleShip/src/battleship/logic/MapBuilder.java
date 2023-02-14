@@ -1,5 +1,7 @@
 package battleship.logic;
 
+import java.util.Arrays;
+
 /**
  * todo Document type MapBuilder
  */
@@ -48,5 +50,45 @@ public class MapBuilder {
 
             i += 4;
         }
+    }
+
+    public static String[][] replaceWithNumbers(String[][] battleShip) {
+        char numberToPrint = '1';
+        for (int i = 0; i < battleShip.length; i++) {
+            for (int j = 0; j < battleShip[i].length; j++) {
+
+                if (i == 0 && j == 0) {
+                    battleShip[i][j] = "  ";
+                } else if (i == 0 && j < 10) {
+                    battleShip[i][j] = battleShip[i][j].replace('~', numberToPrint);
+                    numberToPrint++;
+                } else if (i == 0) {
+                    battleShip[i][j] = "10";
+                }
+            }
+        }
+        return battleShip;
+    }
+
+
+    public static String[][] fillBattleShip() {
+        String[][] battleField = new String[11][11];
+        for (String[] strings : battleField) {
+            Arrays.fill(strings, "~ ");
+        }
+        return battleField;
+    }
+
+    public static String[][] replaceWithLetters(String[][] battleShip) {
+        char charToPrint = 'A';
+        for (int i = 0; i < battleShip.length; i++) {
+            for (int j = 0; j < battleShip[i].length; j++) {
+                if (j == 0 && i > 0) {
+                    battleShip[i][j] = battleShip[i][j].replace('~', charToPrint);
+                    charToPrint++;
+                }
+            }
+        }
+        return battleShip;
     }
 }

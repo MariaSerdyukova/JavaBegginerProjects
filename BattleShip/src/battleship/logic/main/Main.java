@@ -1,3 +1,4 @@
+package battleship.logic.main;
 
 import battleship.ui.UserInterface;
 

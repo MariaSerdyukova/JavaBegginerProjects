@@ -1,4 +1,4 @@
-package battleship.logic;
+package battleship.data;
 
 /**
  * todo Document type ShipType
